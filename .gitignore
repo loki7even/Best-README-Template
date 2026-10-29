@@ -1,0 +1,38 @@
+# Dépendances
+node_modules/
+.pnp
+.pnp.*
+
+# Builds
+dist/
+dist-ssr/
+build/
+out/
+.next/
+.expo/
+.vercel/
+*.tsbuildinfo
+
+# Variables d'environnement (garder .env.example)
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Tests
+coverage/
+
+# Éditeurs et systèmes
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.sw?
+
+# Claude Code : réglages personnels
+.claude/settings.local.json

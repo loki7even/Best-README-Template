@@ -1,0 +1,42 @@
+name: Déploiement OVH
+
+# Publie le site sur l'hébergement web OVH (dossier www) par FTP à chaque push sur main.
+# Secrets à créer dans GitHub > Settings > Secrets and variables > Actions :
+#   OVH_FTP_SERVER    ex. ftp.cluster0XX.hosting.ovh.net
+#   OVH_FTP_USERNAME  identifiant FTP
+#   OVH_FTP_PASSWORD  mot de passe FTP
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-ovh
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Envoi FTP vers l'hébergement OVH (dossier www)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.OVH_FTP_SERVER }}
+          username: ${{ secrets.OVH_FTP_USERNAME }}
+          password: ${{ secrets.OVH_FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: ./www/

@@ -1,0 +1,29 @@
+name: Fonctionnalité
+description: Proposer une nouvelle fonctionnalité ou une amélioration
+title: "[Fonctionnalité] "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: besoin
+    attributes:
+      label: Besoin
+      description: Le problème à résoudre, pour qui.
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Solution envisagée
+  - type: textarea
+    id: criteres
+    attributes:
+      label: Critères d'acceptation
+      placeholder: |
+        - [ ] …
+        - [ ] …
+  - type: dropdown
+    id: priorite
+    attributes:
+      label: Priorité
+      options: [Basse, Normale, Haute]
+      default: 1

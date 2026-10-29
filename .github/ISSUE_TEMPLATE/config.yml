@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Faille de sécurité
+    url: https://github.com/loki7even/Best-README-Template/security/policy
+    about: Ne pas ouvrir d'issue publique, suivre la politique de sécurité.
