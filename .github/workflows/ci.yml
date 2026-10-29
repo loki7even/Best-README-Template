@@ -1,0 +1,51 @@
+name: CI
+
+# Lint et build sur chaque pull request et sur main.
+# Tant que le dépôt n'a pas de package-lock.json (modèle vierge), les étapes Node sont ignorées.
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      HAS_NODE: ${{ hashFiles('package-lock.json') != '' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Projet sans package-lock.json
+        if: env.HAS_NODE != 'true'
+        run: echo "::notice::Aucun package-lock.json, étapes Node ignorées."
+
+      - uses: actions/setup-node@v4
+        if: env.HAS_NODE == 'true'
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Installation
+        if: env.HAS_NODE == 'true'
+        run: npm ci
+
+      - name: Lint
+        if: env.HAS_NODE == 'true'
+        run: npm run lint --if-present
+
+      - name: Build
+        if: env.HAS_NODE == 'true'
+        run: npm run build --if-present
+
+      - name: Tests
+        if: env.HAS_NODE == 'true'
+        run: npm test --if-present
