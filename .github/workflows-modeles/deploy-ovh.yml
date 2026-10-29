@@ -1,0 +1,54 @@
+name: Déploiement OVH
+
+# Copier vers .github/workflows/deploy.yml pour l'activer.
+# Publie dist/ dans le dossier www de l'hébergement mutualisé OVH par FTP à chaque push sur main.
+# Secrets : OVH_FTP_SERVER, OVH_FTP_USERNAME, OVH_FTP_PASSWORD
+# (OVH > Web Cloud > Hébergements > FTP - SSH).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      HAS_SECRETS: ${{ secrets.OVH_FTP_SERVER != '' }}
+    steps:
+      - name: Vérifier la configuration
+        if: env.HAS_SECRETS != 'true'
+        run: echo "::warning::Secrets OVH_FTP_* absents, déploiement ignoré."
+
+      - uses: actions/checkout@v4
+        if: env.HAS_SECRETS == 'true'
+
+      - uses: actions/setup-node@v4
+        if: env.HAS_SECRETS == 'true'
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Build
+        if: env.HAS_SECRETS == 'true'
+        run: |
+          npm ci
+          npm run build
+
+      - name: Envoi FTP (dossier www)
+        if: env.HAS_SECRETS == 'true'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.OVH_FTP_SERVER }}
+          username: ${{ secrets.OVH_FTP_USERNAME }}
+          password: ${{ secrets.OVH_FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: ./www/

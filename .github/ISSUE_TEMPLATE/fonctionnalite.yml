@@ -1,0 +1,20 @@
+name: Demande de fonctionnalité
+description: Proposer une amélioration ou une nouvelle fonctionnalité
+labels: [amélioration]
+body:
+  - type: textarea
+    id: besoin
+    attributes:
+      label: Le besoin
+      description: Quel problème cette fonctionnalité résout-elle, et pour qui ?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Solution envisagée
+  - type: dropdown
+    id: priorite
+    attributes:
+      label: Priorité
+      options: [Indispensable, Importante, Confort]

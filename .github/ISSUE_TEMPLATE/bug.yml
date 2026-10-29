@@ -1,0 +1,30 @@
+name: Bug
+description: Quelque chose ne fonctionne pas comme prévu
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Ce qui se passe
+      description: Que s'est-il passé, et qu'attendais-tu à la place ?
+    validations:
+      required: true
+  - type: textarea
+    id: etapes
+    attributes:
+      label: Étapes pour reproduire
+      placeholder: |
+        1. Aller sur la page…
+        2. Cliquer sur…
+        3. Voir l'erreur
+    validations:
+      required: true
+  - type: input
+    id: environnement
+    attributes:
+      label: Appareil et navigateur
+      placeholder: ex. iPhone 15, Safari 19 / Windows, Chrome 141
+  - type: textarea
+    id: captures
+    attributes:
+      label: Captures d'écran ou journaux

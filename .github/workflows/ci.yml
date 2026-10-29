@@ -1,0 +1,50 @@
+name: CI
+
+# Lint, tests et build sur chaque pull request et chaque push sur main.
+# Tant que le dépôt n'a pas de package.json (modèle vierge), le job s'arrête proprement.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Vérifier la présence du projet
+        id: projet
+        run: |
+          if [ -f package.json ]; then echo "present=true" >> "$GITHUB_OUTPUT"
+          else echo "::notice::Pas de package.json, CI ignorée."; fi
+
+      - uses: actions/setup-node@v4
+        if: steps.projet.outputs.present == 'true'
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+        if: steps.projet.outputs.present == 'true'
+
+      - name: Lint
+        if: steps.projet.outputs.present == 'true'
+        run: npm run lint --if-present
+
+      - name: Tests
+        if: steps.projet.outputs.present == 'true'
+        run: npm test --if-present
+
+      - name: Build
+        if: steps.projet.outputs.present == 'true'
+        run: npm run build --if-present

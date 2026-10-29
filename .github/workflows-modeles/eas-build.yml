@@ -1,0 +1,45 @@
+name: Build Expo (EAS)
+
+# Copier vers .github/workflows/eas-build.yml pour l'activer (application Expo uniquement).
+# Lance un build de production Android et iOS sur les serveurs Expo, à la demande.
+# Secret : EXPO_TOKEN (expo.dev > Account settings > Access tokens).
+# Les profils development / preview / production se règlent dans eas.json.
+
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: Plateforme
+        type: choice
+        options: [all, android, ios]
+        default: all
+      profile:
+        description: Profil eas.json
+        type: choice
+        options: [preview, production]
+        default: preview
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - run: npm ci
+
+      - name: Build
+        run: eas build --platform ${{ inputs.platform }} --profile ${{ inputs.profile }} --non-interactive --no-wait

@@ -1,0 +1,66 @@
+name: Déploiement Ionos
+
+# Copier vers .github/workflows/deploy.yml pour l'activer.
+# Publie dist/ sur le webspace Ionos par SFTP à chaque push sur main.
+# Secrets à créer dans GitHub > Settings > Secrets and variables > Actions :
+#   IONOS_SFTP_HOST     ex. access-5012345678.webspace-host.com
+#   IONOS_SFTP_USER     ex. a123456
+#   IONOS_SFTP_PASSWORD mot de passe de l'utilisateur SFTP
+#   IONOS_SFTP_DIR      dossier cible relié au domaine, ex. /mon-site (jamais /)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      HAS_SECRETS: ${{ secrets.IONOS_SFTP_HOST != '' }}
+    steps:
+      - name: Vérifier la configuration
+        if: env.HAS_SECRETS != 'true'
+        run: echo "::warning::Secrets IONOS_SFTP_* absents, déploiement ignoré."
+
+      - uses: actions/checkout@v4
+        if: env.HAS_SECRETS == 'true'
+
+      - uses: actions/setup-node@v4
+        if: env.HAS_SECRETS == 'true'
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Build
+        if: env.HAS_SECRETS == 'true'
+        run: |
+          npm ci
+          npm run build
+
+      - name: Envoi SFTP
+        if: env.HAS_SECRETS == 'true'
+        env:
+          HOST: ${{ secrets.IONOS_SFTP_HOST }}
+          USER: ${{ secrets.IONOS_SFTP_USER }}
+          PASS: ${{ secrets.IONOS_SFTP_PASSWORD }}
+          DIR: ${{ secrets.IONOS_SFTP_DIR }}
+        run: |
+          # --delete supprime du dossier cible tout ce qui n'est pas dans dist : jamais la racine du webspace
+          if [ -z "$DIR" ] || [ "$DIR" = "/" ]; then
+            echo "::error::IONOS_SFTP_DIR doit pointer vers un sous-dossier dédié au site."; exit 1
+          fi
+          sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+          lftp -u "$USER","$PASS" "sftp://$HOST" -e "
+            set sftp:auto-confirm yes;
+            set net:max-retries 3;
+            mirror --reverse --delete --verbose --parallel=4 dist/ $DIR;
+            bye"

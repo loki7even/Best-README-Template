@@ -1,0 +1,46 @@
+# Dépendances
+node_modules/
+
+# Builds
+dist/
+build/
+.next/
+out/
+*.tsbuildinfo
+
+# Expo / React Native (android/ et ios/ sont régénérés par expo prebuild)
+.expo/
+web-build/
+android/
+ios/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Variables d'environnement (garder .env.example)
+.env
+.env.*
+!.env.example
+
+# Hébergeurs
+.vercel/
+.firebase/
+
+# Tests
+coverage/
+playwright-report/
+test-results/
+
+# Claude Code (réglages personnels)
+.claude/settings.local.json
+CLAUDE.local.md
+
+# Système et éditeurs
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.log
