@@ -5,6 +5,12 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 
 ## [Non publié]
 
+### Modifié
+- Branche principale renommée `master` → `main`, comme tous les dépôts Loudevia.
+- `CLAUDE.md` contient désormais toutes les consignes (format des dépôts récents) ; `AGENTS.md` renvoie vers lui.
+- `.claude/settings.json` active les plugins officiels (code-review, security-guidance, frontend-design, context7, commit-commands, claude-md-management).
+- CI déclenchée sur `main` seulement.
+
 ## [2.0.0] - 2026-10-29
 
 ### Ajouté

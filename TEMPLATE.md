@@ -6,7 +6,7 @@ Pour le déroulé complet d'un projet client (devis, maquettes, mise en ligne, m
 
 ## 1. Créer le dépôt
 
-1. Sur GitHub, ouvrir ce dépôt puis **Use this template > Create a new repository** (cocher *Template repository* une fois dans Settings > General si le bouton n'apparaît pas).
+1. Sur GitHub, ouvrir ce dépôt puis **Use this template > Create a new repository**.
 2. Nommer le dépôt, le laisser **privé** par défaut.
 3. Cloner le nouveau dépôt.
 
@@ -33,7 +33,7 @@ Vérifier que `package.json` contient bien les scripts `lint` et `build` : la CI
 
 - [ ] `README.md` : remplacer tous les `[crochets]`, supprimer les sections inutiles
 - [ ] `images/logo.png` : remplacer par le logo du projet
-- [ ] `AGENTS.md` : décrire la stack, la structure et les règles propres au projet
+- [ ] `CLAUDE.md` : remplacer les `[crochets]` (projet, structure, stack, règles propres)
 - [ ] `.env.example` : lister les variables (sans valeurs)
 - [ ] `LICENSE` : garder MIT pour un projet open source, sinon remplacer par une mention « tous droits réservés » au nom du client
 - [ ] `.github/CODEOWNERS` : vérifier le propriétaire
@@ -51,6 +51,6 @@ Vérifier que `package.json` contient bien les scripts `lint` et `build` : la CI
 
 ## 5. Outils IA
 
-- `CLAUDE.md` importe `AGENTS.md` : les consignes sont donc lues par Claude Code et par les autres agents (Codex, Copilot, Cursor…). Mettre les règles dans `AGENTS.md`.
-- `.claude/settings.json` autorise sans confirmation les commandes sûres (`npm run lint`, `npm run build`, `git status`…). Les ajouts personnels vont dans `.claude/settings.local.json`, ignoré par git.
-- Dans Claude Code, `/init` peut compléter `AGENTS.md` une fois le code généré.
+- `CLAUDE.md` contient toutes les consignes (structure, commandes, conventions, sécurité). `AGENTS.md` renvoie vers lui pour les autres agents (Codex, Copilot, Cursor…). Pour un projet Next.js, `next dev` peut ajouter un bloc dans `AGENTS.md` : le garder.
+- `.claude/settings.json` active les plugins officiels (`code-review`, `security-guidance`, `frontend-design`, `context7`…) dès l'ouverture du dépôt dans Claude Code, et autorise sans confirmation les commandes sûres (`npm run lint`, `npm run build`, `git status`…). Les ajouts personnels vont dans `.claude/settings.local.json`, ignoré par git.
+- Dans Claude Code, `/init` peut compléter `CLAUDE.md` une fois le code généré. Ajouter un plugin propre au projet dans `enabledPlugins` (par exemple `firebase@claude-plugins-official`).
