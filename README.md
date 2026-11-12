@@ -96,8 +96,8 @@ src/
   components/       composants réutilisables
   pages/            une page par route
   lib/              utilitaires, clients de services
-CLAUDE.md           consignes pour Claude Code (renvoie vers AGENTS.md)
-AGENTS.md           conventions du projet pour les agents IA
+CLAUDE.md           consignes pour Claude Code et les agents IA
+AGENTS.md           renvoie vers CLAUDE.md pour les autres agents
 ```
 
 ## Déploiement
