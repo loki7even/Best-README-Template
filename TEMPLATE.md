@@ -40,12 +40,13 @@ Vérifier que `package.json` contient bien les scripts `lint` et `build` : la CI
 - [ ] `.github/ISSUE_TEMPLATE/config.yml` : remplacer `Best-README-Template` par le nom du nouveau dépôt dans le lien de sécurité
 - [ ] `CHANGELOG.md` : repartir d'une section `[Non publié]` vide
 - [ ] Déploiement : copier le workflow voulu depuis `docs/exemples-workflows/` vers `.github/workflows/deploy.yml` et créer les secrets
+- [ ] Dépendances : ajouter le dépôt au tableau « Ce qu'un merge sur `main` déclenche » du guide `docs/maintenance-dependances.md` dans Best-README-Template, et compléter la ligne Dépendances de `CLAUDE.md`
 - [ ] Supprimer ce fichier `TEMPLATE.md`
 
 ## 4. Réglages GitHub (une fois par dépôt)
 
 - **Settings > Branches** : règle sur `main`, pull request obligatoire, check `CI` obligatoire.
-- **Settings > General** : activer *Automatically delete head branches* et *Allow squash merging* (désactiver les autres modes pour un historique propre).
+- **Settings > General** : branche par défaut `main` (sinon Dependabot n'ouvre aucune PR) ; activer *Automatically delete head branches* et *Allow squash merging* (désactiver les autres modes pour un historique propre).
 - **Settings > Code security** : activer Dependabot alerts, secret scanning et push protection.
 - **Settings > Secrets and variables > Actions** : secrets de déploiement.
 

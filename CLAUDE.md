@@ -29,6 +29,7 @@ npm run build    # à faire passer avant chaque PR (la CI lance lint + build)
 - Identifiants et noms de fichiers en anglais, commentaires et documentation en français.
 - Commits au format Conventional Commits (`feat:`, `fix:`, `docs:`…), voir `CONTRIBUTING.md`.
 - Une branche et une pull request par changement ; ne jamais pousser directement sur `main`.
+- Dépendances : les PR Dependabot suivent [docs/maintenance-dependances.md](docs/maintenance-dependances.md) (mineures fusionnées à CI verte, une par une ; majeures soumises à Lounes). [Ce qu'un merge sur `main` déclenche : déploiement chez …, ou rien.]
 - Toute nouvelle page est privée par défaut (noindex, hors menu et sitemap) jusqu'à ce que Lounes demande de la rendre publique.
 
 ## Sécurité

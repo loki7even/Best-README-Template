@@ -6,6 +6,7 @@ Index de la documentation du projet. Numéroter les fichiers pour garder un ordr
 | --- | --- | --- |
 | [01 Architecture](01-architecture.md) | Vue d'ensemble, choix techniques, flux de données | Pour comprendre le projet |
 | [02 Déploiement](02-deploiement.md) | Hébergeur, domaine, secrets, mise en ligne | Pour publier ou dépanner la production |
+| [Maintenance des dépendances](maintenance-dependances.md) | Routine Dependabot, majeures écartées, effet d'un merge par dépôt | Chaque lundi, devant les PR de Dependabot |
 | [Exemples de workflows](exemples-workflows/) | Workflows GitHub Actions prêts à copier | Au moment de brancher le déploiement |
 
 ## Journal du projet

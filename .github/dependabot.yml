@@ -7,6 +7,12 @@ updates:
       interval: weekly
       day: monday
     open-pull-requests-limit: 5
+    # Versions majeures écartées : migration à faire à la main (voir docs/maintenance-dependances.md).
+    ignore:
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
     groups:
       mineures-et-correctifs:
         update-types: [minor, patch]
