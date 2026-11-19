@@ -1,6 +1,6 @@
 name: Déploiement Ionos
 
-# Publie le site sur l'hébergement Ionos (webspace) par SFTP à chaque push sur main.
+# Publie le site sur l'hébergement Ionos (webspace) par SFTP à la demande (bouton Run workflow).
 # Secrets à créer dans GitHub > Settings > Secrets and variables > Actions :
 #   IONOS_SFTP_HOST     ex. access-5012345678.webspace-host.com
 #   IONOS_SFTP_USER     ex. a123456
@@ -8,9 +8,13 @@ name: Déploiement Ionos
 #   IONOS_SFTP_DIR      dossier cible sur le serveur, ex. /mon-site (celui relié au domaine)
 
 on:
-  push:
-    branches: [main]
+  # Par défaut, mise en ligne seulement à la demande (Actions > ce workflow > Run workflow, branche main) :
+  # une fusion sur main ne consomme aucune minute. Pour un client qui veut une mise en ligne à chaque fusion,
+  # décommenter le bloc push (accord de Lounes, voir docs/quota-github-actions.md).
   workflow_dispatch:
+  # push:
+  #   branches: [main]
+  #   paths-ignore: ['**.md', 'docs/**']
 
 concurrency:
   group: deploy-ionos
@@ -22,6 +26,7 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     env:
       HAS_SECRETS: ${{ secrets.IONOS_SFTP_HOST != '' }}
     steps:

@@ -1,12 +1,12 @@
 name: CI
 
-# Lint et build sur chaque pull request et sur main.
+# Lint et build sur chaque pull request. Pas de relance après la fusion sur main : c'est déjà vérifié dans la PR
+# (économie de minutes Actions, voir docs/quota-github-actions.md).
 # Tant que le dépôt n'a pas de package-lock.json (modèle vierge), les étapes Node sont ignorées.
+# hashFiles() n'est pas permis dans le `env` d'un job (le workflow échouait au démarrage) : le test est fait dans chaque `if`.
 
 on:
   pull_request:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 concurrency:
@@ -19,33 +19,33 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      HAS_NODE: ${{ hashFiles('package-lock.json') != '' }}
+    # Le quota de minutes est partagé entre tous les dépôts privés : un job bloqué ne doit pas le vider
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
       - name: Projet sans package-lock.json
-        if: env.HAS_NODE != 'true'
+        if: hashFiles('package-lock.json') == ''
         run: echo "::notice::Aucun package-lock.json, étapes Node ignorées."
 
       - uses: actions/setup-node@v4
-        if: env.HAS_NODE == 'true'
+        if: hashFiles('package-lock.json') != ''
         with:
           node-version-file: .nvmrc
           cache: npm
 
       - name: Installation
-        if: env.HAS_NODE == 'true'
+        if: hashFiles('package-lock.json') != ''
         run: npm ci
 
       - name: Lint
-        if: env.HAS_NODE == 'true'
+        if: hashFiles('package-lock.json') != ''
         run: npm run lint --if-present
 
       - name: Build
-        if: env.HAS_NODE == 'true'
+        if: hashFiles('package-lock.json') != ''
         run: npm run build --if-present
 
       - name: Tests
-        if: env.HAS_NODE == 'true'
+        if: hashFiles('package-lock.json') != ''
         run: npm test --if-present

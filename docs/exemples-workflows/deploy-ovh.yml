@@ -1,15 +1,23 @@
 name: Déploiement OVH
 
-# Publie le site sur l'hébergement web OVH (dossier www) par FTP à chaque push sur main.
+# Publie le site sur l'hébergement web OVH (dossier www) en FTPS à la demande (bouton Run workflow).
+# Inactif tant que la variable de dépôt OVH_DEPLOY ne vaut pas « oui » (Settings > Secrets and variables >
+# Actions > onglet Variables) : la passer à « non » coupe les mises en ligne sans toucher au fichier.
+# Envoi à la main (quota Actions atteint) : FileZilla, voir docs/ftp-sftp-filezilla.md, puis supprimer
+# www/.ftp-deploy-sync-state.json avant de relancer ce workflow.
 # Secrets à créer dans GitHub > Settings > Secrets and variables > Actions :
 #   OVH_FTP_SERVER    ex. ftp.cluster0XX.hosting.ovh.net
 #   OVH_FTP_USERNAME  identifiant FTP
 #   OVH_FTP_PASSWORD  mot de passe FTP
 
 on:
-  push:
-    branches: [main]
+  # Par défaut, mise en ligne seulement à la demande (Actions > ce workflow > Run workflow, branche main) :
+  # une fusion sur main ne consomme aucune minute. Pour un client qui veut une mise en ligne à chaque fusion,
+  # décommenter le bloc push (accord de Lounes, voir docs/quota-github-actions.md).
   workflow_dispatch:
+  # push:
+  #   branches: [main]
+  #   paths-ignore: ['**.md', 'docs/**']
 
 concurrency:
   group: deploy-ovh
@@ -20,7 +28,9 @@ permissions:
 
 jobs:
   deploy:
+    if: vars.OVH_DEPLOY == 'oui'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
@@ -38,5 +48,6 @@ jobs:
           server: ${{ secrets.OVH_FTP_SERVER }}
           username: ${{ secrets.OVH_FTP_USERNAME }}
           password: ${{ secrets.OVH_FTP_PASSWORD }}
+          protocol: ftps
           local-dir: ./dist/
           server-dir: ./www/

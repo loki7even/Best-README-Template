@@ -1,13 +1,17 @@
 name: Déploiement GitHub Pages
 
-# Publie dist/ sur GitHub Pages à chaque push sur main.
+# Publie dist/ sur GitHub Pages à la demande (bouton Run workflow).
 # Activer une fois : Settings > Pages > Source : GitHub Actions.
 # Pour un site servi sous /nom-du-depot/, régler `base: '/nom-du-depot/'` dans vite.config.ts.
 
 on:
-  push:
-    branches: [main]
+  # Par défaut, mise en ligne seulement à la demande (Actions > ce workflow > Run workflow, branche main) :
+  # une fusion sur main ne consomme aucune minute. Pour un client qui veut une mise en ligne à chaque fusion,
+  # décommenter le bloc push (accord de Lounes, voir docs/quota-github-actions.md).
   workflow_dispatch:
+  # push:
+  #   branches: [main]
+  #   paths-ignore: ['**.md', 'docs/**']
 
 permissions:
   contents: read
@@ -21,6 +25,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -37,6 +42,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

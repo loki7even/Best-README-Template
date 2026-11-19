@@ -5,7 +5,7 @@ Guide commun à tous les projets de Lounes. Il se donne tel quel à la session C
 ## Contexte
 
 - **Dependabot** est le robot de GitHub qui ouvre une PR à chaque nouvelle version d'une bibliothèque. Il est réglé dans `.github/dependabot.yml` :
-  - npm chaque lundi, les versions mineures et correctives regroupées dans une seule PR « mineures-et-correctifs » ;
+  - npm une fois par mois (chaque PR lance la CI et consomme des minutes Actions ; certains dépôts anciens sont encore réglés sur chaque lundi), les versions mineures et correctives regroupées dans une seule PR « mineures-et-correctifs » ;
   - GitHub Actions une fois par mois (et cargo ou pip une fois par mois quand le dépôt en contient).
 - Dependabot ne travaille que sur la **branche par défaut** du dépôt. Si elle n'est pas `main`, aucune PR n'arrive : la changer dans Settings > General.
 - **Un merge sur `main` peut mettre le site en ligne.** Vérifier dans le tableau plus bas ce que déclenche le dépôt avant de merger.
@@ -16,18 +16,19 @@ Guide commun à tous les projets de Lounes. Il se donne tel quel à la session C
 
 | Dépôt | Effet d'un merge sur `main` |
 | --- | --- |
-| LOUDEVIA | Déploiement Ionos (site, Hub `/espace`, API PHP) ; PR Dependabot gérées par Lounes |
+| LOUDEVIA | Rien depuis le 19 novembre 2026 : mise en ligne à la demande (`deployer` ou Run workflow) ; PR Dependabot gérées par Lounes |
 | GazelleTransports | Déploiement OVH par FTP (site client) |
 | LAGames | Déploiement Ionos par SFTP, dossier `/lagames` (site client) |
-| Kizuna-Sekai | Déploiement Vercel |
+| Kizuna-Sekai | Déploiement OVH par FTPS dans `www/` (si la variable `OVH_DEPLOY` vaut `oui`) |
 | Cetavi | Déploiement Vercel |
 | pharmahub | Déploiement Vercel |
 | WTFast (BlindzRun) | Rien : l'application part par un build EAS lancé à la main |
 | AmiDo | Rien : le site tourne en local |
+| post-a-thought | Rien : mise en ligne à la demande (`deployer` ou Run workflow), dossier `/poemes` |
 
 Un nouveau projet ajoute sa ligne ici au démarrage.
 
-## Routine (chaque lundi après le passage de Dependabot)
+## Routine (après le passage de Dependabot)
 
 1. Lister les PR ouvertes dont l'auteur est `dependabot[bot]`.
 2. Pour chacune, relever : le type de mise à jour (correctif, mineure, majeure), les dossiers touchés, l'état de la CI et l'absence de conflit.
