@@ -5,13 +5,9 @@ name: Déploiement GitHub Pages
 # Pour un site servi sous /nom-du-depot/, régler `base: '/nom-du-depot/'` dans vite.config.ts.
 
 on:
-  # Par défaut, mise en ligne seulement à la demande (Actions > ce workflow > Run workflow, branche main) :
-  # une fusion sur main ne consomme aucune minute. Pour un client qui veut une mise en ligne à chaque fusion,
-  # décommenter le bloc push (accord de Lounes, voir docs/quota-github-actions.md).
+  # Règle Loudevia : tout déploiement se fait à la demande (Actions > ce workflow > Run workflow, branche main).
+  # Jamais de push ni de schedule ici : une fusion sur main ne publie rien (voir docs/quota-github-actions.md).
   workflow_dispatch:
-  # push:
-  #   branches: [main]
-  #   paths-ignore: ['**.md', 'docs/**']
 
 permissions:
   contents: read

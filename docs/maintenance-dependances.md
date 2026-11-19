@@ -8,7 +8,7 @@ Guide commun à tous les projets de Lounes. Il se donne tel quel à la session C
   - npm une fois par mois (chaque PR lance la CI et consomme des minutes Actions ; certains dépôts anciens sont encore réglés sur chaque lundi), les versions mineures et correctives regroupées dans une seule PR « mineures-et-correctifs » ;
   - GitHub Actions une fois par mois (et cargo ou pip une fois par mois quand le dépôt en contient).
 - Dependabot ne travaille que sur la **branche par défaut** du dépôt. Si elle n'est pas `main`, aucune PR n'arrive : la changer dans Settings > General.
-- **Un merge sur `main` peut mettre le site en ligne.** Vérifier dans le tableau plus bas ce que déclenche le dépôt avant de merger.
+- **Règle de base : un merge sur `main` ne met rien en ligne** (sauf les projets Vercel, qui publient eux-mêmes). Vérifier dans le tableau plus bas avant de merger.
 - Ne jamais toucher aux PR de travail ouvertes par les autres sessions (branches `claude/...`), seulement à celles de `dependabot[bot]`.
 - Un dépôt peut avoir ses propres règles en plus (exemple : LOUDEVIA, dont Lounes gère lui-même les PR Dependabot). Elles priment sur ce guide.
 
@@ -17,9 +17,9 @@ Guide commun à tous les projets de Lounes. Il se donne tel quel à la session C
 | Dépôt | Effet d'un merge sur `main` |
 | --- | --- |
 | LOUDEVIA | Rien depuis le 19 novembre 2026 : mise en ligne à la demande (`deployer` ou Run workflow) ; PR Dependabot gérées par Lounes |
-| GazelleTransports | Déploiement OVH par FTP (site client) |
-| LAGames | Déploiement Ionos par SFTP, dossier `/lagames` (site client) |
-| Kizuna-Sekai | Déploiement OVH par FTPS dans `www/` (si la variable `OVH_DEPLOY` vaut `oui`) |
+| GazelleTransports | Rien : mise en ligne à la demande (Run workflow ou FileZilla) |
+| LAGames | Rien : mise en ligne à la demande (Run workflow ou `deployer`), dossier `/lagames` |
+| Kizuna-Sekai | Rien : mise en ligne à la demande (Run workflow si `OVH_DEPLOY` vaut `oui`, ou FileZilla) |
 | Cetavi | Déploiement Vercel |
 | pharmahub | Déploiement Vercel |
 | WTFast (BlindzRun) | Rien : l'application part par un build EAS lancé à la main |
