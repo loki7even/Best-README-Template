@@ -17,6 +17,7 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 - `.claude/settings.json` active les plugins officiels (code-review, security-guidance, frontend-design, context7, commit-commands, claude-md-management).
 - CI déclenchée sur `main` seulement.
 - CI et exemples de déploiement : `timeout-minutes: 10` ; déploiements ignorés quand seule la doc change ; exemple OVH en FTPS avec interrupteur `OVH_DEPLOY`.
+- CI : le workflow échouait au démarrage depuis la version 2.0.0 (`hashFiles()` dans le `env` du job, non permis) ; le test du `package-lock.json` passe dans chaque étape.
 - Tableau des effets d'un merge : Kizuna-Sekai passe chez OVH, ajout de post-a-thought.
 
 ## [2.0.0] - 2026-10-29
