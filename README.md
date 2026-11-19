@@ -102,7 +102,7 @@ AGENTS.md           renvoie vers CLAUDE.md pour les autres agents
 
 ## Déploiement
 
-[Automatique à chaque push sur `main` via `.github/workflows/deploy.yml`.]
+[À la demande : Actions > workflow de déploiement > Run workflow, ou envoi depuis le PC (voir `docs/02-deploiement.md`).]
 
 Secrets à créer une fois dans GitHub > Settings > Secrets and variables > Actions :
 

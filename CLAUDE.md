@@ -29,7 +29,7 @@ npm run build    # à faire passer avant chaque PR (la CI lance lint + build)
 - Identifiants et noms de fichiers en anglais, commentaires et documentation en français.
 - Commits au format Conventional Commits (`feat:`, `fix:`, `docs:`…), voir `CONTRIBUTING.md`.
 - Une branche et une pull request par changement ; ne jamais pousser directement sur `main`.
-- Dépendances : les PR Dependabot suivent [docs/maintenance-dependances.md](docs/maintenance-dependances.md) (mineures fusionnées à CI verte, une par une ; majeures soumises à Lounes). [Ce qu'un merge sur `main` déclenche : déploiement chez …, ou rien.]
+- Dépendances : les PR Dependabot suivent [docs/maintenance-dependances.md](docs/maintenance-dependances.md) (mineures fusionnées à CI verte, une par une ; majeures soumises à Lounes). [Ce qu'un merge sur `main` déclenche : rien par défaut (mise en ligne à la demande), ou déploiement chez … si le client l'a demandé.]
 - Toute nouvelle page est privée par défaut (noindex, hors menu et sitemap) jusqu'à ce que Lounes demande de la rendre publique.
 
 ## Sécurité
@@ -41,7 +41,7 @@ npm run build    # à faire passer avant chaque PR (la CI lance lint + build)
 
 ## GitHub Actions et serveurs
 
-- Le quota de minutes Actions est partagé entre tous les dépôts privés du compte : `timeout-minutes` sur chaque job, pas de machine Windows ou macOS ni de tâche planifiée sans accord de Lounes. Voir [docs/quota-github-actions.md](docs/quota-github-actions.md).
+- Le quota de minutes Actions est partagé entre tous les dépôts privés du compte : CI seulement sur les PR, mise en ligne à la demande (pas à chaque fusion), `timeout-minutes` sur chaque job, pas de machine Windows ou macOS ni de tâche planifiée sans accord de Lounes. Voir [docs/quota-github-actions.md](docs/quota-github-actions.md).
 - Si Actions est bloqué, vérifier sur le PC (`npm ci && npm run lint && npm run build`) puis déployer à la main ; chez OVH, avec FileZilla ([docs/ftp-sftp-filezilla.md](docs/ftp-sftp-filezilla.md)).
 - Leçons des autres projets : [docs/lecons-projets.md](docs/lecons-projets.md).
 

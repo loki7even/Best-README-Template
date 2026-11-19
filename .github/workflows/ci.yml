@@ -1,13 +1,12 @@
 name: CI
 
-# Lint et build sur chaque pull request et sur main.
+# Lint et build sur chaque pull request. Pas de relance après la fusion sur main : c'est déjà vérifié dans la PR
+# (économie de minutes Actions, voir docs/quota-github-actions.md).
 # Tant que le dépôt n'a pas de package-lock.json (modèle vierge), les étapes Node sont ignorées.
 # hashFiles() n'est pas permis dans le `env` d'un job (le workflow échouait au démarrage) : le test est fait dans chaque `if`.
 
 on:
   pull_request:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 concurrency:

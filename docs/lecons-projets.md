@@ -9,13 +9,14 @@ Ce que les projets de Lounes ont appris à leurs dépens, rassemblé ici pour ne
 | Leçon | Règle retenue | Guide |
 | --- | --- | --- |
 | Le quota de minutes GitHub Actions est partagé entre tous les dépôts privés du compte. En novembre 2026, les installeurs Windows et macOS de LOUDEVIA l'ont épuisé et ont bloqué CI et déploiements partout | Machines Windows et macOS à la demande seulement, `timeout-minutes` sur chaque job, pas de tâche planifiée inutile ; quand le quota est atteint, vérifier et déployer à la main | [quota-github-actions.md](quota-github-actions.md) |
+| Faire tourner CI et déploiement à chaque fusion sur `main` consomme des minutes pour rien : la PR a déjà été vérifiée | Depuis le 19 novembre 2026 (LOUDEVIA, Post a thought) : CI seulement sur les PR, mise en ligne à la demande ou depuis le PC (`deployer`), Dependabot mensuel, installeurs construits sur le PC (`construire.ps1`) | [quota-github-actions.md](quota-github-actions.md) |
 | Chez OVH, FileZilla est le moyen le plus sûr de voir et de manipuler le serveur (envoi à la main, `.htaccess`, sauvegarde, ménage) | FTP explicite sur TLS, fichiers cachés affichés, mots de passe protégés par un mot de passe principal ; après un envoi à la main, supprimer le fichier d'état de l'action FTP | [ftp-sftp-filezilla.md](ftp-sftp-filezilla.md) |
 
 ## Déploiement et hébergement
 
 | Leçon | Règle retenue | Source |
 | --- | --- | --- |
-| Un merge sur `main` met le site en production | Chaque `CLAUDE.md` dit ce que déclenche un merge ; tableau commun dans [maintenance-dependances.md](maintenance-dependances.md) | Tous les dépôts |
+| Un merge sur `main` peut mettre le site en production (anciens dépôts clients) | Chaque `CLAUDE.md` dit ce que déclenche un merge ; tableau commun dans [maintenance-dependances.md](maintenance-dependances.md) | Tous les dépôts |
 | Un miroir avec suppression (`lftp --delete`) vers la racine du webspace efface les autres sites | Dossier cible dédié par site (`/loudevia`, `/lagames`, `/poemes`) ; le workflow refuse `/` | LOUDEVIA, LAGames |
 | Couper les mises en ligne automatiques doit être simple (maintenance, passation, hébergement pas encore prêt) | Job conditionné par une variable de dépôt (`if: vars.OVH_DEPLOY == 'oui'`) plutôt que de supprimer le workflow | Kizuna-Sekai |
 | `vite preview` sert l'accueil sur toutes les adresses et fausse le test d'un site pré-rendu | Tester `dist/` avec `python3 -m http.server` | Kizuna-Sekai |

@@ -4,8 +4,8 @@ updates:
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: weekly
-      day: monday
+      # Mensuel : chaque PR Dependabot lance la CI, donc consomme des minutes Actions
+      interval: monthly
     open-pull-requests-limit: 5
     # Versions majeures écartées : migration à faire à la main (voir docs/maintenance-dependances.md).
     ignore:

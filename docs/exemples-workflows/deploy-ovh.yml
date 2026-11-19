@@ -1,6 +1,6 @@
 name: Déploiement OVH
 
-# Publie le site sur l'hébergement web OVH (dossier www) en FTPS à chaque push sur main.
+# Publie le site sur l'hébergement web OVH (dossier www) en FTPS à la demande (bouton Run workflow).
 # Inactif tant que la variable de dépôt OVH_DEPLOY ne vaut pas « oui » (Settings > Secrets and variables >
 # Actions > onglet Variables) : la passer à « non » coupe les mises en ligne sans toucher au fichier.
 # Envoi à la main (quota Actions atteint) : FileZilla, voir docs/ftp-sftp-filezilla.md, puis supprimer
@@ -11,11 +11,13 @@ name: Déploiement OVH
 #   OVH_FTP_PASSWORD  mot de passe FTP
 
 on:
-  push:
-    branches: [main]
-    # Un changement de doc seul ne redéploie pas (économise les minutes Actions)
-    paths-ignore: ['**.md', 'docs/**']
+  # Par défaut, mise en ligne seulement à la demande (Actions > ce workflow > Run workflow, branche main) :
+  # une fusion sur main ne consomme aucune minute. Pour un client qui veut une mise en ligne à chaque fusion,
+  # décommenter le bloc push (accord de Lounes, voir docs/quota-github-actions.md).
   workflow_dispatch:
+  # push:
+  #   branches: [main]
+  #   paths-ignore: ['**.md', 'docs/**']
 
 concurrency:
   group: deploy-ovh

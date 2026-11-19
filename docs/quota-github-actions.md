@@ -19,11 +19,16 @@ Vercel, Netlify et EAS construisent sur leurs propres machines : leurs déploiem
 
 ## Règles pour économiser les minutes
 
-Ces règles sont déjà appliquées dans `.github/workflows/ci.yml` et dans les [exemples de workflows](exemples-workflows/).
+Ces règles sont déjà appliquées dans `.github/workflows/ci.yml` et dans les [exemples de workflows](exemples-workflows/). Elles reprennent la décision prise pour LOUDEVIA et Post a thought le 19 novembre 2026.
 
+- [ ] **Rien ne tourne après une fusion sur `main`** : la CI tourne sur la pull request, inutile de tout revérifier après la fusion.
+- [ ] **Mise en ligne à la demande** : le workflow de déploiement n'a que `workflow_dispatch` (Actions > Run workflow), ou l'envoi se fait depuis le PC (`deployer`, FileZilla), ce qui ne coûte aucune minute. Une mise en ligne à chaque fusion seulement si le client y tient, avec l'accord de Lounes.
+- [ ] **CI limitée au dossier concerné** dans un dépôt qui contient plusieurs projets (`paths:` sur `pull_request`, exemple : LOUDEVIA vérifie le site seulement quand `Loudevia/**` change). Attention : si ce check est obligatoire sur `main`, une PR qui ne touche pas ces chemins reste bloquée en attente ; ne pas le rendre obligatoire, ou garder la CI sans filtre.
+- [ ] **Dependabot une fois par mois** : chaque PR qu'il ouvre lance la CI.
+- [ ] **Installeurs de logiciels construits sur le PC** plutôt que sur des machines Windows ou macOS de GitHub : script `construire.ps1` de LOUDEVIA ([construction-locale.md](https://github.com/loki7even/LOUDEVIA/blob/main/docs/construction-locale.md)). macOS seulement à la demande, quand un Mac n'est pas disponible.
 - [ ] `timeout-minutes` sur chaque job (10 pour une CI ou un déploiement de site).
 - [ ] `concurrency` avec `cancel-in-progress: true` sur la CI : un nouveau push annule le run précédent de la même branche.
-- [ ] Déploiement ignoré quand seuls la doc ou les Markdown changent (`paths-ignore`). Ne pas mettre `paths-ignore` sur la CI si son check est obligatoire sur `main` : la PR resterait bloquée en attente.
+- [ ] Si un déploiement reste automatique à la fusion : l'ignorer quand seuls la doc ou les Markdown changent (`paths-ignore`).
 - [ ] Machines Windows et macOS uniquement à la demande (`workflow_dispatch`) ou sur `main`, jamais sur chaque push (exemple : workflows `atelier.yml` et `formateur.yml` de LOUDEVIA).
 - [ ] Pas de tâche planifiée (`schedule`) sans raison : une par semaine au plus (exemple : Gazelle republie le lundi pour rafraîchir les avis Google).
 - [ ] Peu de jobs : regrouper lint, build et tests dans un seul job.
@@ -58,7 +63,7 @@ Si la protection de `main` exige le check `CI` et qu'il ne peut pas tourner, l'a
 | Hébergeur | Outil conseillé | Guide |
 | --- | --- | --- |
 | OVH (hébergement web) | FileZilla, en FTP explicite sur TLS (ou SFTP sur les offres qui incluent SSH) | [ftp-sftp-filezilla.md](ftp-sftp-filezilla.md) |
-| Ionos (webspace) | Outil `deployer` de LOUDEVIA (PowerShell + WinSCP, n'envoie que les fichiers modifiés), ou FileZilla en SFTP | [deploiement-manuel.md de LOUDEVIA](https://github.com/loki7even/LOUDEVIA/blob/main/docs/deploiement-manuel.md) et [ftp-sftp-filezilla.md](ftp-sftp-filezilla.md) |
+| Ionos (webspace) | Outil `deployer` de LOUDEVIA (façon normale de mettre en ligne Loudevia et Post a thought depuis le 19 novembre 2026) (PowerShell + WinSCP, n'envoie que les fichiers modifiés), ou FileZilla en SFTP | [deploiement-manuel.md de LOUDEVIA](https://github.com/loki7even/LOUDEVIA/blob/main/docs/deploiement-manuel.md) et [ftp-sftp-filezilla.md](ftp-sftp-filezilla.md) |
 | Vercel | Rien à faire : Vercel construit lui-même à chaque push, sans Actions. En cas de besoin : `npx vercel --prod` depuis le dossier du projet | Documentation du projet |
 | Expo (EAS) | `eas build` lancé à la main ; `eas build --local` construit sur le PC si les builds gratuits du mois sont épuisés | Dossier technique Loudevia, section 7 |
 
