@@ -19,6 +19,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Le quota de minutes est partagé entre tous les dépôts privés : un job bloqué ne doit pas le vider
+    timeout-minutes: 10
     env:
       HAS_NODE: ${{ hashFiles('package-lock.json') != '' }}
     steps:

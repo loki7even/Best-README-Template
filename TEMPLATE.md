@@ -41,6 +41,9 @@ Vérifier que `package.json` contient bien les scripts `lint` et `build` : la CI
 - [ ] `CHANGELOG.md` : repartir d'une section `[Non publié]` vide
 - [ ] Déploiement : copier le workflow voulu depuis `docs/exemples-workflows/` vers `.github/workflows/deploy.yml` et créer les secrets
 - [ ] Dépendances : ajouter le dépôt au tableau « Ce qu'un merge sur `main` déclenche » du guide `docs/maintenance-dependances.md` dans Best-README-Template, et compléter la ligne Dépendances de `CLAUDE.md`
+- [ ] `docs/02-deploiement.md` : remplir la section « Déploiement à la main » (où trouver les accès, dossier du site), sans aucun identifiant
+- [ ] Ajouter la ligne du projet dans le tableau « Ce qu'un merge sur `main` déclenche » de `docs/maintenance-dependances.md` (dans ce modèle)
+- [ ] Lire [docs/lecons-projets.md](docs/lecons-projets.md) avant de choisir hébergeur et services gratuits
 - [ ] Supprimer ce fichier `TEMPLATE.md`
 
 ## 4. Réglages GitHub (une fois par dépôt)

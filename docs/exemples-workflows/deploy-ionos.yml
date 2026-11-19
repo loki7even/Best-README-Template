@@ -10,6 +10,8 @@ name: Déploiement Ionos
 on:
   push:
     branches: [main]
+    # Un changement de doc seul ne redéploie pas (économise les minutes Actions)
+    paths-ignore: ['**.md', 'docs/**']
   workflow_dispatch:
 
 concurrency:
@@ -22,6 +24,7 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     env:
       HAS_SECRETS: ${{ secrets.IONOS_SFTP_HOST != '' }}
     steps:

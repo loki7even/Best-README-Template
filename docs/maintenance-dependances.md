@@ -19,11 +19,12 @@ Guide commun à tous les projets de Lounes. Il se donne tel quel à la session C
 | LOUDEVIA | Déploiement Ionos (site, Hub `/espace`, API PHP) ; PR Dependabot gérées par Lounes |
 | GazelleTransports | Déploiement OVH par FTP (site client) |
 | LAGames | Déploiement Ionos par SFTP, dossier `/lagames` (site client) |
-| Kizuna-Sekai | Déploiement Vercel |
+| Kizuna-Sekai | Déploiement OVH par FTPS dans `www/` (si la variable `OVH_DEPLOY` vaut `oui`) |
 | Cetavi | Déploiement Vercel |
 | pharmahub | Déploiement Vercel |
 | WTFast (BlindzRun) | Rien : l'application part par un build EAS lancé à la main |
 | AmiDo | Rien : le site tourne en local |
+| post-a-thought | Déploiement Ionos par SFTP, dossier `/poemes` |
 
 Un nouveau projet ajoute sa ligne ici au démarrage.
 

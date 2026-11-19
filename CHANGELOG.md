@@ -5,11 +5,19 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 
 ## [Non publié]
 
+### Ajouté
+- `docs/lecons-projets.md` : leçons de tous les projets (déploiement, offres gratuites, secrets, mobile, paiement).
+- `docs/quota-github-actions.md` : quota de minutes partagé, règles pour l'économiser, déploiement à la main.
+- `docs/ftp-sftp-filezilla.md` : FileZilla pour OVH et Ionos (configuration, envoi manuel, fichier d'état de l'action FTP, pièges).
+- Section « Déploiement à la main » dans `docs/02-deploiement.md` et section « GitHub Actions et serveurs » dans `CLAUDE.md`.
+
 ### Modifié
 - Branche principale renommée `master` → `main`, comme tous les dépôts Loudevia.
 - `CLAUDE.md` contient désormais toutes les consignes (format des dépôts récents) ; `AGENTS.md` renvoie vers lui.
 - `.claude/settings.json` active les plugins officiels (code-review, security-guidance, frontend-design, context7, commit-commands, claude-md-management).
 - CI déclenchée sur `main` seulement.
+- CI et exemples de déploiement : `timeout-minutes: 10` ; déploiements ignorés quand seule la doc change ; exemple OVH en FTPS avec interrupteur `OVH_DEPLOY`.
+- Tableau des effets d'un merge : Kizuna-Sekai passe chez OVH, ajout de post-a-thought.
 
 ## [2.0.0] - 2026-10-29
 

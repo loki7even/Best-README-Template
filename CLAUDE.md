@@ -39,6 +39,12 @@ npm run build    # à faire passer avant chaque PR (la CI lance lint + build)
 - Les clés serveur (Supabase service role, Stripe secret…) ne s'utilisent que côté serveur, jamais dans un composant client ni une variable `VITE_` / `NEXT_PUBLIC_`.
 - Changement de schéma Supabase : skill `supabase-migration`. Avant une mise en ligne : skill `site-mise-en-ligne`.
 
+## GitHub Actions et serveurs
+
+- Le quota de minutes Actions est partagé entre tous les dépôts privés du compte : `timeout-minutes` sur chaque job, pas de machine Windows ou macOS ni de tâche planifiée sans accord de Lounes. Voir [docs/quota-github-actions.md](docs/quota-github-actions.md).
+- Si Actions est bloqué, vérifier sur le PC (`npm ci && npm run lint && npm run build`) puis déployer à la main ; chez OVH, avec FileZilla ([docs/ftp-sftp-filezilla.md](docs/ftp-sftp-filezilla.md)).
+- Leçons des autres projets : [docs/lecons-projets.md](docs/lecons-projets.md).
+
 ## Règles propres au projet
 
 - [Piège connu, fichier à ne pas toucher, décision à respecter…]
