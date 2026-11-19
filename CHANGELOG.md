@@ -5,6 +5,9 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 
 ## [Non publié]
 
+### Modifié (19 novembre 2026)
+- Règle de base : tout déploiement à la demande, jamais à la fusion ni planifié ; les exemples de workflows n'ont plus de bloc `push` commenté.
+
 ### Ajouté
 - `docs/lecons-projets.md` : leçons de tous les projets (déploiement, offres gratuites, secrets, mobile, paiement).
 - `docs/quota-github-actions.md` : quota de minutes partagé, règles pour l'économiser, déploiement à la main.

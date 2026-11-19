@@ -4,7 +4,7 @@
 
 | Environnement | URL | Déclencheur |
 | --- | --- | --- |
-| Production | [https://exemple.fr] | [À la demande : Actions > Run workflow, ou envoi depuis le PC / push sur `main` si le client l'a demandé] |
+| Production | [https://exemple.fr] | À la demande : Actions > Run workflow, ou envoi depuis le PC |
 | Aperçu | [URL d'aperçu] | pull request |
 
 ## Secrets GitHub Actions
