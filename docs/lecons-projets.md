@@ -2,7 +2,7 @@
 
 Mis à jour le 18 novembre 2026
 
-Ce que les projets de Lounes ont appris à leurs dépens, rassemblé ici pour ne pas le réapprendre. Chaque ligne cite le dépôt où le détail se trouve. Ajouter une ligne à chaque piège nouveau, et la règle correspondante dans le modèle (`CLAUDE.md`, workflows ou checklist de `TEMPLATE.md`).
+Ce que les projets de Lounes ont appris à leurs dépens, rassemblé ici pour ne pas le réapprendre. Chaque ligne cite le dépôt où le détail se trouve. Les erreurs propres à un seul projet vont dans son `docs/erreurs-connues.md` ; celles qui peuvent toucher d'autres projets remontent ici. Ajouter une ligne à chaque piège nouveau, et la règle correspondante dans le modèle (`CLAUDE.md`, workflows ou checklist de `TEMPLATE.md`).
 
 ## Les deux leçons principales
 

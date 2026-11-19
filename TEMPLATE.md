@@ -43,6 +43,7 @@ Vérifier que `package.json` contient bien les scripts `lint` et `build` : la CI
 - [ ] Dépendances : ajouter le dépôt au tableau « Ce qu'un merge sur `main` déclenche » du guide `docs/maintenance-dependances.md` dans Best-README-Template, et compléter la ligne Dépendances de `CLAUDE.md`
 - [ ] `docs/02-deploiement.md` : remplir la section « Déploiement à la main » (où trouver les accès, dossier du site), sans aucun identifiant
 - [ ] Ajouter la ligne du projet dans le tableau « Ce qu'un merge sur `main` déclenche » de `docs/maintenance-dependances.md` (dans ce modèle)
+- [ ] `docs/erreurs-connues.md` : garder le fichier, vider la ligne d'exemple au premier vrai ajout
 - [ ] Lire [docs/lecons-projets.md](docs/lecons-projets.md) avant de choisir hébergeur et services gratuits
 - [ ] Supprimer ce fichier `TEMPLATE.md`
 
@@ -57,4 +58,6 @@ Vérifier que `package.json` contient bien les scripts `lint` et `build` : la CI
 
 - `CLAUDE.md` contient toutes les consignes (structure, commandes, conventions, sécurité). `AGENTS.md` renvoie vers lui pour les autres agents (Codex, Copilot, Cursor…). Pour un projet Next.js, `next dev` peut ajouter un bloc dans `AGENTS.md` : le garder.
 - `.claude/settings.json` active les plugins officiels (`code-review`, `security-guidance`, `frontend-design`, `context7`…) dès l'ouverture du dépôt dans Claude Code, et autorise sans confirmation les commandes sûres (`npm run lint`, `npm run build`, `git status`…). Les ajouts personnels vont dans `.claude/settings.local.json`, ignoré par git.
+- `docs/erreurs-connues.md` est la mémoire des erreurs du projet : Claude le lit avant de déboguer et l'alimente dès qu'une erreur est corrigée. Comme il est versionné, il sert aussi aux sessions cloud, qui repartent d'un clone neuf.
+- Garder `CLAUDE.md` sous 150 lignes : il est relu à chaque message, chaque ligne inutile coûte des tokens partout. Le détail va dans `docs/`.
 - Dans Claude Code, `/init` peut compléter `CLAUDE.md` une fois le code généré. Ajouter un plugin propre au projet dans `enabledPlugins` (par exemple `firebase@claude-plugins-official`).

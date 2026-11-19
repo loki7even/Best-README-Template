@@ -5,6 +5,11 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 
 ## [Non publié]
 
+### Ajouté (19 novembre 2026, économie de tokens)
+- `docs/erreurs-connues.md` : registre des erreurs du projet (symptôme, cause, correctif), lu avant tout débogage et complété dès qu'une erreur est corrigée.
+- Section « Erreurs et économie de contexte » dans `CLAUDE.md` : registre, `CLAUDE.md` sous 150 lignes, une tâche par session, sous-agent Explore pour les recherches larges.
+- Case « erreur ajoutée au registre » dans le modèle de PR.
+
 ### Modifié (19 novembre 2026)
 - Règle de base : tout déploiement à la demande, jamais à la fusion ni planifié ; les exemples de workflows n'ont plus de bloc `push` commenté.
 
