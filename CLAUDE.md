@@ -39,6 +39,12 @@ npm run build    # à faire passer avant chaque PR (la CI lance lint + build)
 - Les clés serveur (Supabase service role, Stripe secret…) ne s'utilisent que côté serveur, jamais dans un composant client ni une variable `VITE_` / `NEXT_PUBLIC_`.
 - Changement de schéma Supabase : skill `supabase-migration`. Avant une mise en ligne : skill `site-mise-en-ligne`.
 
+## Erreurs et économie de contexte
+
+- Avant de déboguer, lire [docs/erreurs-connues.md](docs/erreurs-connues.md). Dès qu'une erreur est corrigée, y ajouter une ligne (symptôme, cause, correctif) dans le même commit ; si elle peut toucher d'autres projets, la signaler pour [docs/lecons-projets.md](docs/lecons-projets.md).
+- Ce fichier reste court (moins de 150 lignes) : le détail va dans `docs/`, avec un lien ici.
+- Une tâche par session (ou `/clear` entre deux tâches). Pour une recherche dans tout le dépôt, passer par le sous-agent Explore plutôt que lire les fichiers un par un.
+
 ## GitHub Actions et serveurs
 
 - Le quota de minutes Actions est partagé entre tous les dépôts privés du compte : CI seulement sur les PR, **tout déploiement à la demande** (jamais à la fusion ni planifié), `timeout-minutes` sur chaque job, pas de machine Windows ou macOS ni de tâche planifiée sans accord de Lounes. Voir [docs/quota-github-actions.md](docs/quota-github-actions.md).

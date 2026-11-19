@@ -20,4 +20,5 @@
 - [ ] `npm run lint` et `npm run build` passent en local
 - [ ] Testé sur mobile (360 px) et ordinateur si l'interface change
 - [ ] Nouvelles variables ajoutées à `.env.example`
+- [ ] Erreur corrigée ajoutée à `docs/erreurs-connues.md` si la PR en corrige une
 - [ ] `CHANGELOG.md` mis à jour si le changement est visible
